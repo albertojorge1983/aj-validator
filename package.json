@@ -1,0 +1,24 @@
+{
+  "name": "aj-validator",
+  "version": "1.0.4",
+  "description": "Node Validator",
+  "main": "./distribution/index.js",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "scripts": {
+    "build": "babel source --presets babel-preset-env --out-dir distribution",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertojorge1983/aj-validator.git"
+  },
+  "author": "Aj <dujarric.design@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/albertojorge1983/aj-validator/issues"
+  },
+  "homepage": "https://github.com/albertojorge1983/aj-validator#readme"
+}
