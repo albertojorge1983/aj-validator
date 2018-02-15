@@ -178,7 +178,7 @@ class Validator {
 
     for (const prop in this.rules) {
       this.rules[prop].forEach(rule => {
-        if (this.data.hasOwnProperty(prop)) {
+        if (this.data.hasOwnProperty(prop) && this.data[prop] !== '') {
           try {
             let params = this.getParams(rule);
             let is_valid = this[params.rule](this.data[prop], params.data);
@@ -188,8 +188,8 @@ class Validator {
               this.recordError(prop, params.rule, msg);
             }
           } catch (error) {
-            // throw error
-            throw `Sorry, the rule: ${rule} is not supported at the moment`
+            throw error
+            // throw `Sorry, the rule: ${rule} is not supported at the moment`
           }
         } else {
           if(rule === 'required'){
@@ -302,4 +302,3 @@ class Validator {
 }
 
 module.exports = new Validator();
-
