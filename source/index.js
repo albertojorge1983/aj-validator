@@ -24,7 +24,7 @@ class Validator {
 
   [setData](data) {
     try {
-      if(!data || typeof data !== 'object')
+      if (!data || typeof data !== 'object')
         throw new Error("Data to validate is required")
 
       this.data = data;
@@ -41,7 +41,7 @@ class Validator {
 
   [setRules](rules) {
     try {
-      if(!rules || typeof rules !== 'object')
+      if (!rules || typeof rules !== 'object')
         throw new Error("Rules to validate are required")
 
       for (let field in rules) {
@@ -103,7 +103,7 @@ class Validator {
           msg = 'Field is required'
           break;
         case 'email':
-          msg = 'Invalid Email'
+          msg = 'Invalid Email provided'
           break;
         case 'max':
           msg = `More than ${params[0]} characters are not allowed`
@@ -111,8 +111,20 @@ class Validator {
         case 'min':
           msg = `Less than ${params[0]} characters are not allowed`
           break;
-        case 'string':
-          msg = `Field is not type string`
+        case 'json':
+          msg = 'Invalid Json provided'
+          break;
+        case 'url':
+          msg = 'Invalid URL provided'
+          break;
+        case 'date':
+          msg = 'Invalid Date provided'
+          break;
+        case 'integer':
+          msg = 'Data provided is not type [integer]'
+          break;
+        case 'regex':
+          msg = 'Data provided do not match regular expression'
           break;
         default:
           msg = 'No data provided to validator'
@@ -130,9 +142,9 @@ class Validator {
    */
 
   [setMessage](msg = {}) {
-    if(Object.keys(this.msg).length === 0){
+    if (Object.keys(this.msg).length === 0) {
       this.msg = msg;
-    }else{
+    } else {
       for (const prop in msg) {
         this.msg[prop] = msg[prop]
       }
@@ -192,7 +204,7 @@ class Validator {
             // throw `Sorry, the rule: ${rule} is not supported at the moment`
           }
         } else {
-          if(rule === 'required'){
+          if (rule === 'required') {
             let params = this.getParams(rule);
             let msg = this.getMessage(prop, params.rule);
             this.recordError(prop, params.rule, msg);
@@ -224,10 +236,8 @@ class Validator {
    * @return {boolean}
    */
 
-  //TODO: Make posible to pass a custom regex as parameter to the rule ( var re = new RegExp("\\w+"); )
   email(val, params) {
-    let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(String(val).toLowerCase())
+    return val.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   }
 
   /**
@@ -273,6 +283,46 @@ class Validator {
   }
 
   /**
+   * URL field validator
+   *
+   * @param {string} [val]
+   * @param {array} [params]
+   * @return {boolean}
+   */
+
+  url(val, params) {
+    return val.match(/^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/);
+  }
+
+  /**
+   * Date field validator
+   *
+   * @param {string} [val]
+   * @param {array} [params]
+   * @return {boolean}
+   */
+
+  date(val, params) {
+    var intDate = Date.parse(val);
+    if (isNaN(intDate)) {
+      return false
+    }
+    return true;
+  }
+
+  /**
+   * Integer field validator
+   *
+   * @param {string} [val]
+   * @param {array} [params]
+   * @return {boolean}
+   */
+
+  integer(val, params) {
+    return val.match(/^(?:-?(?:[0-9][0-9]*)(?:\.?0+)?)$/)
+  }
+
+  /**
    * Define custom method validator.
    *
    * @param {object} [validator]
@@ -283,12 +333,13 @@ class Validator {
   make(validator, fn) {
     try {
       if (!validator || typeof validator !== 'object')
-        return 'Need to pass and object with rule name and message properties';
+        throw 'Need to pass and object with rule name and message properties as parameter';
 
-      //TODO Validate object should have name and message keys and values
+      if (!validator.name || validator.name === '')
+        throw 'Validator name is required';
 
       if (!validator.message || validator.message === '')
-        validator.message = 'Input specific description about your validation';
+        throw 'Input specific description about your validation';
 
       this.msg[validator.name] = validator.message;
 
