@@ -11,13 +11,13 @@ Simple and extensible validator library for node.js.
 <pre>var validator = require('aj-validator');</pre>
 
 ### Basic usage
-<pre background: #f7f7f7>
+```
 let is_valid = validator.email('aj@mail.com');
 console.log(is_valid); // true
-</pre>
+```
 
 ### Validate multiple fields
-<pre background: #f7f7f7>
+```
 api.post('/user', (req, res) => {
   
   // validationRules expect to be an object with: 
@@ -37,10 +37,10 @@ api.post('/user', (req, res) => {
   console.log(errors); // {name: ["required"], username: ["Invalid Email provided", "Less than 6 characters are not allowed"]}
 
 });
-</pre>
+```
 
 ### Create custom validators
-<pre background: #f7f7f7>
+```
 // customValidator expect to be an object with: 
 // name = Validator name
 // message = Message to display in case validation fails
@@ -64,10 +64,10 @@ let validationRules = {
 
 let is_valid = validator.validate(req.body, validationRules);
 console.log(is_valid); // true|false
-</pre>
+```
 
 ### Customize messages to display
-<pre background: #f7f7f7>
+```
 let customMessages = {
   'required':'Message to be display only on fields if required rule fail',
   'required.username': 'Message to be displayed only on username field if required rule fail',
@@ -89,7 +89,7 @@ console.log(is_valid); // true|false
 let errors = validator.getErrors(); // Retriving validation errors
 console.log(errors); // {name: ["Message to be display only on fields if required rule fail"], 
                          username: [Message to be displayed only on username field if required rule fail]}
-</pre>
+```
 
 ### Validators built-in
 
