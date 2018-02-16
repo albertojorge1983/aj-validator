@@ -1,7 +1,7 @@
 {
   "name": "aj-validator",
   "version": "1.0.8",
-  "description": "Node Validator",
+  "description": "Simple and extensible validator library for node.js.",
   "main": "./distribution/index.js",
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -15,6 +15,11 @@
     "type": "git",
     "url": "git+https://github.com/albertojorge1983/aj-validator.git"
   },
+  "keywords": [
+    "validator",
+    "validation",
+    "validate"
+  ],
   "author": "Aj <dujarric.design@gmail.com>",
   "license": "MIT",
   "bugs": {
