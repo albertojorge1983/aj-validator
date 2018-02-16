@@ -95,5 +95,11 @@ console.log(errors); // {name: ["Message to be display only on fields if require
 
 Validator | Parameter | Description
 --------- | --------- | ----------- 
-required  | none      | The field under validation must be present in the input data and not empty.
-email     | none      | The field under validation must be formatted as an e-mail address.
+required  | none      | The field under validation must be present in the input data and not empty
+email     | none      | The field under validation must be formatted as an e-mail address
+max       | integer   | The field under validation must be less than or equal to a maximum value
+min       | integer   | The field under validation must have a minimum value
+json      | none      | The field under validation must be a valid JSON string
+url       | none      | The field under validation must be a valid URL
+date      | none      | The field under validation must be a valid date according to javascript Date object
+integer   | none      | The field under validation must be an integer
