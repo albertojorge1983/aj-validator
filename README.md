@@ -5,19 +5,24 @@ Simple and extensible validator library for node.js.
 <pre>npm install aj-validator</pre>
 
 ### ES6
-<pre>import validator from 'aj-validator'</pre>
+```javascript
+import validator from 'aj-validator'
+```
 
 ### No ES6
-<pre>var validator = require('aj-validator');</pre>
+```javascript
+var validator = require('aj-validator');
+```
 
 ### Basic usage
-```
+
+```javascript
 let is_valid = validator.email('aj@mail.com');
 console.log(is_valid); // true
 ```
 
 ### Validate multiple fields
-```
+```javascript
 api.post('/user', (req, res) => {
   
   // validationRules expect to be an object with: 
@@ -40,7 +45,7 @@ api.post('/user', (req, res) => {
 ```
 
 ### Create custom validators
-```
+```javascript
 // customValidator expect to be an object with: 
 // name = Validator name
 // message = Message to display in case validation fails
@@ -67,7 +72,7 @@ console.log(is_valid); // true|false
 ```
 
 ### Customize messages to display
-```
+```javascript
 let customMessages = {
   'required':'Message to be display only on fields if required rule fail',
   'required.username': 'Message to be displayed only on username field if required rule fail',
