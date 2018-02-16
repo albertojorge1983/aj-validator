@@ -1,5 +1,5 @@
 # aj-validator
-Nodejs validator
+Simple and extensible validator library for node.js.
 
 ### Installation and Usage
 
@@ -9,4 +9,4 @@ Install the library with `  npm install aj-validator  `
 <pre>import validator from 'aj-validator'</pre>
 
 ### No ES6
-<pre>var validator = require('aj-validator')</pre>
+<pre>var validator = require('aj-validator');</pre>
