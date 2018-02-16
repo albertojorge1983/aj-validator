@@ -93,7 +93,7 @@ console.log(is_valid); // true|false
 
 let errors = validator.getErrors(); // Retriving validation errors
 console.log(errors); // {name: ["Message to be display only on fields if required rule fail"], 
-                         username: [Message to be displayed only on username field if required rule fail]}
+                     //  username: [Message to be displayed only on username field if required rule fail]}
 ```
 
 ### Validators built-in
