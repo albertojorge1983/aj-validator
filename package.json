@@ -1,6 +1,6 @@
 {
   "name": "aj-validator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Simple and extensible validator library for node.js.",
   "main": "./distribution/index.js",
   "devDependencies": {
