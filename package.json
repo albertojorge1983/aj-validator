@@ -1,6 +1,6 @@
 {
   "name": "aj-validator",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Node Validator",
   "main": "./distribution/index.js",
   "devDependencies": {
