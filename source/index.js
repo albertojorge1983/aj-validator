@@ -7,6 +7,7 @@
 let setData = Symbol();
 let setRules = Symbol();
 let setMessage = Symbol();
+let paramsToArray = Symbol();
 
 class Validator {
   constructor() {
@@ -175,6 +176,22 @@ class Validator {
   }
 
   /**
+   * Parse parameters from strings to array
+   *
+   * @param {array} [params]
+   * @return {array}
+   */
+
+  [paramsToArray](params) {
+    let data = [];
+
+    if (typeof params === 'string')
+      data.push(params);
+
+    return data
+  }
+
+  /**
    * Validate data using each rule defined.
    *
    * @param {object} [data]
@@ -245,11 +262,13 @@ class Validator {
    * Max length field validator
    *
    * @param {string} [val]
-   * @param {array} [params]
+   * @param {string || array} [params]
    * @return {boolean}
    */
 
   max(val, params) {
+    let data = this[paramsToArray](params);
+
     return val.length <= Number(params[0])
   }
 
@@ -257,12 +276,14 @@ class Validator {
    * Min length field validator
    *
    * @param {string} [val]
-   * @param {array} [params]
+   * @param {string || array} [params]
    * @return {boolean}
    */
 
   min(val, params) {
-    return val.length >= Number(params[0])
+    let data = this[paramsToArray](params);
+
+    return val.length >= Number(data[0])
   }
 
   /**
@@ -346,7 +367,10 @@ class Validator {
 
       this.msg[validator.name] = validator.message;
 
-      return this[validator.name] = fn;
+      return this[validator.name] = ((val, parameters) => {
+        let params = this[paramsToArray](parameters);
+        return fn;
+      })()
 
     } catch (error) {
       throw error
