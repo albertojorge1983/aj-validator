@@ -185,7 +185,7 @@ class Validator {
   [paramsToArray](params) {
     let data = [];
 
-    if (typeof params === 'string')
+    if (typeof params === 'string' || typeof params === 'number')
       data.push(params);
 
     return data
