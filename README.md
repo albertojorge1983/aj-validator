@@ -61,7 +61,7 @@ let customValidator = {
 
 // .make() method expect 2 parameters:
 // customValidator object {name: '', message: ''}
-// fn callback passing value(string) to validate and parameters(array)
+// fn callback receiving value(string) to validate and parameters(string, number or array)
 // Should return true|false
 
 validator.make(customValidator, (val, ruleParams) => val.length >= ruleParams );
