@@ -19,6 +19,10 @@ var validator = require('aj-validator');
 ```javascript
 let is_valid = validator.email('aj@mail.com');
 console.log(is_valid); // true
+
+
+let is_valid = validator.max('some text', 4); // Passing parameters
+console.log(is_valid); // false
 ```
 
 ### Validate multiple fields
